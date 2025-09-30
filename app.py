@@ -41,6 +41,16 @@ def _auth_check(authorization: Optional[str]):
 def health():
     return {"ok": True}
 
+@app.get("/debug")
+def debug():
+    import os
+    return {
+        "current_dir": os.getcwd(),
+        "files": os.listdir("."),
+        "config_exists": os.path.exists("config"),
+        "config_files": os.listdir("config") if os.path.exists("config") else "No config dir"
+    }
+
 @app.get("/banks/{brand}")
 def banks(brand: str, authorization: Optional[str] = Header(None)):
     _auth_check(authorization)
