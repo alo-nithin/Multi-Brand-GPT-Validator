@@ -62,8 +62,11 @@ def banks(brand: str, authorization: Optional[str] = Header(None)):
 
 @app.post("/validate")
 def do_validate(req: ValidateRequest, authorization: Optional[str] = Header(None)):
-    _auth_check(authorization)
-    ok, errors, payload = validate(req.model_dump())
-    if not ok:
-        return {"valid": False, "errors": errors, "suggestions": {}}
-    return {"valid": True, **payload}
+    try:
+        _auth_check(authorization)
+        ok, errors, payload = validate(req.model_dump())
+        if not ok:
+            return {"valid": False, "errors": errors, "suggestions": {}}
+        return {"valid": True, **payload}
+    except Exception as e:
+        return {"error": str(e), "type": type(e).__name__}
