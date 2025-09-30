@@ -4,7 +4,19 @@ from dateutil import tz
 from typing import Dict, List, Tuple
 
 def _cfg_path(brand: str) -> str:
-    return os.path.join("config", f"{brand.lower().replace(' ','')}.json")
+    # Try multiple possible paths for the config directory
+    possible_paths = [
+        os.path.join("config", f"{brand.lower().replace(' ','')}.json"),
+        os.path.join(".", "config", f"{brand.lower().replace(' ','')}.json"),
+        os.path.join(os.path.dirname(__file__), "config", f"{brand.lower().replace(' ','')}.json")
+    ]
+    
+    for path in possible_paths:
+        if os.path.exists(path):
+            return path
+    
+    # If none found, return the first one (will raise FileNotFoundError)
+    return possible_paths[0]
 
 def load_brand_config(brand: str) -> Dict:
     p = _cfg_path(brand)
