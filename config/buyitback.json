@@ -1,0 +1,353 @@
+{
+  "brand": "Buyitback",
+  "voice": {
+    "tone": "Professional, engaging, customer-focused.",
+    "style": "Clear, concise, value-driven."
+  },
+  "story": "Buyitback is committed to delivering exceptional value and service to our customers.",
+  "platforms": [
+    "Instagram",
+    "LinkedIn",
+    "TikTok",
+    "X"
+  ],
+  "cadence": {
+    "Facebook": 0,
+    "Glassdoor": 0,
+    "Indeed": 0,
+    "LinkedIn": 0,
+    "Pinterest": 0,
+    "Quora": 0,
+    "Reddit": 0,
+    "Threads": 0,
+    "TikTok": 0,
+    "X": 0,
+    "YouTube": 0
+  },
+  "media_policy": {
+    "Facebook": {
+      "allowed": [
+        "single_image",
+        "carousel",
+        "video"
+      ],
+      "max_carousel": 10,
+      "min_res": "1200x630",
+      "aspect": [
+        "1:1",
+        "16:9"
+      ],
+      "video_cap": "≤240s"
+    },
+    "Glassdoor": {
+      "allowed": [
+        "single_image"
+      ],
+      "min_res": "1200x1200",
+      "aspect": [
+        "1:1",
+        "16:9"
+      ],
+      "video_cap": "≤2m"
+    },
+    "Indeed": {
+      "allowed": [
+        "single_image"
+      ],
+      "min_res": "1200x1200",
+      "aspect": [
+        "1:1",
+        "16:9"
+      ],
+      "video_cap": "≤2m"
+    },
+    "LinkedIn": {
+      "allowed": [
+        "single_image",
+        "document",
+        "video"
+      ],
+      "doc_pages_max": 20,
+      "min_res": "1200x1200",
+      "aspect": [
+        "1:1",
+        "16:9"
+      ],
+      "video_cap": "≤10m"
+    },
+    "Pinterest": {
+      "allowed": [
+        "single_image",
+        "carousel"
+      ],
+      "max_carousel": 5,
+      "min_res": "1000x1500",
+      "aspect": [
+        "2:3",
+        "1:1"
+      ],
+      "video_cap": "≤15s"
+    },
+    "Quora": {
+      "allowed": [
+        "single_image"
+      ],
+      "min_res": "1200x1200",
+      "aspect": [
+        "1:1",
+        "16:9"
+      ],
+      "video_cap": "≤2m"
+    },
+    "Reddit": {
+      "allowed": [
+        "single_image",
+        "video"
+      ],
+      "min_res": "1200x1200",
+      "aspect": [
+        "1:1",
+        "16:9"
+      ],
+      "video_cap": "≤15m"
+    },
+    "Threads": {
+      "allowed": [
+        "single_image",
+        "carousel",
+        "video"
+      ],
+      "max_carousel": 10,
+      "min_res": "1080x1080",
+      "aspect": [
+        "1:1",
+        "4:5",
+        "9:16"
+      ],
+      "video_cap": "≤5m"
+    },
+    "TikTok": {
+      "allowed": [
+        "short_video"
+      ],
+      "min_res": "1080x1920",
+      "aspect": [
+        "9:16"
+      ],
+      "video_cap": "≤60s"
+    },
+    "X": {
+      "allowed": [
+        "single_image",
+        "video"
+      ],
+      "min_res": "600x335",
+      "aspect": [
+        "1:1",
+        "16:9"
+      ],
+      "video_cap": "≤2m20s"
+    },
+    "YouTube": {
+      "allowed": [
+        "video"
+      ],
+      "min_res": "1920x1080",
+      "aspect": [
+        "16:9"
+      ],
+      "video_cap": "≤15m"
+    }
+  },
+  "caption_rules": {
+    "Facebook": {
+      "max_chars": 2200,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "Glassdoor": {
+      "max_chars": 3000,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "Indeed": {
+      "max_chars": 3000,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "LinkedIn": {
+      "max_chars": 3000,
+      "allow_emojis": false,
+      "allow_mentions": true
+    },
+    "Pinterest": {
+      "max_chars": 500,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "Quora": {
+      "max_chars": 5000,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "Reddit": {
+      "max_chars": 10000,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "Threads": {
+      "max_chars": 500,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "TikTok": {
+      "max_chars": 2200,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "X": {
+      "max_chars": 280,
+      "allow_emojis": true,
+      "allow_mentions": true
+    },
+    "YouTube": {
+      "max_chars": 5000,
+      "allow_emojis": true,
+      "allow_mentions": true
+    }
+  },
+  "hashtag_bank": {
+    "Facebook": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "Glassdoor": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "Indeed": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "LinkedIn": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "Pinterest": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "Quora": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "Reddit": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "Threads": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "TikTok": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "X": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ],
+    "YouTube": [
+      "#BuyitbackMarketplace",
+      "#BuyitbackTech"
+    ]
+  },
+  "cta_bank": {
+    "Facebook": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "Glassdoor": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "Indeed": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "LinkedIn": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "Pinterest": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "Quora": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "Reddit": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "Threads": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "TikTok": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "X": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ],
+    "YouTube": [
+      "Learn more",
+      "Get started",
+      "Contact us"
+    ]
+  },
+  "forbidden_words": [
+    "hurry before it’s gone",
+    "hurry before it's gone",
+    "guaranteed results",
+    "no questions asked",
+    "best price guaranteed",
+    "100% risk-free",
+    "miracle",
+    "unlimited for free",
+    "click here",
+    "cheap"
+  ],
+  "required_disclosures": [
+    "Include warranty/return policy when making promises"
+  ],
+  "link_policy": {
+    "linkedin_include_link": true,
+    "instagram_link_in_bio": true,
+    "use_shortener": true,
+    "shortener_domain": "bit.ly",
+    "allowed_domains": [
+      "buyitback.co.uk"
+    ],
+    "utm_template": "utm_source={platform}&utm_medium=social&utm_campaign={brand}_{week}"
+  },
+  "proof_manifest": {
+    "root": "/Codex/Ops/Content/GPT/Proofs/Buyitback/",
+    "week_format": "W%V",
+    "timezone": "Europe/London",
+    "example": "/Codex/Ops/Content/GPT/Proofs/Buyitback/W41.hash"
+  }
+}
