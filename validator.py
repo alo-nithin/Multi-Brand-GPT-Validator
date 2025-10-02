@@ -133,7 +133,7 @@ def validate(bundle: Dict) -> Tuple[bool, List[str], Dict]:
         errors.append(f"PLATFORM_NOT_ENABLED:{platform}")
 
     # caption rules
-    cap_rules = cfg["caption_rules"].get(platform, {})
+    cap_rules = cfg.get("caption_rules", {}).get(platform, {})
     errors += check_caption_rules(bundle.get("caption",""), cap_rules)
 
     # forbidden words
