@@ -108,8 +108,15 @@ class GoogleSheetsService:
             # Convert to DataFrame for easier processing
             df = pd.DataFrame(data[1:], columns=data[0])  # Skip header row
             
+            # Filter for the specific brand (handle brand name variations)
+            brand_variations = [brand_name, f"{brand_name} Markeplac", f"{brand_name} Marketplace"]
+            brand_df = df[df['Brand'].isin(brand_variations)]
+            
+            if brand_df.empty:
+                raise Exception(f"No data found for brand variations: {brand_variations}")
+            
             # Convert to brand configuration format
-            config = self._dataframe_to_config(df, brand_name)
+            config = self._dataframe_to_config(brand_df, brand_name)
             return config
             
         except Exception as e:
@@ -138,6 +145,7 @@ class GoogleSheetsService:
             "forbidden_words": [],
             "link_policy": {"allowed_domains": []},
             "required_disclosures": [],
+            "caption_rules": {},
             "proof_manifest": {
                 "timezone": "UTC",
                 "root": "/proofs"
@@ -162,6 +170,12 @@ class GoogleSheetsService:
             elif category == 'Platforms':
                 if value.lower() == 'true':
                     config['platforms'].append(key)
+            elif category == 'Caption Rules':
+                # For caption rules, platform is in Platform column, key is the rule name
+                if platform and platform not in config['caption_rules']:
+                    config['caption_rules'][platform] = {}
+                if platform:
+                    config['caption_rules'][platform][key] = value
             elif category == 'Hashtag Bank':
                 if platform not in config['hashtag_bank']:
                     config['hashtag_bank'][platform] = []
