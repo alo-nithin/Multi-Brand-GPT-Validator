@@ -1,0 +1,318 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Multi-Brand GPT Validator",
+    "version": "1.0.0",
+    "description": "Validates content against brand guidelines and policies"
+  },
+  "servers": [
+    {
+      "url": "https://multi-brand-gpt-validator.onrender.com"
+    }
+  ],
+  "paths": {
+    "/validate": {
+      "post": {
+        "summary": "Validate content against brand guidelines",
+        "description": "Validates social media content against brand-specific rules, policies, and guidelines",
+        "operationId": "validateContent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValidateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Validation result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/brands": {
+      "get": {
+        "summary": "Get all available brands",
+        "description": "Returns information about all available brands and their configurations",
+        "operationId": "getAllBrands",
+        "responses": {
+          "200": {
+            "description": "List of all brands",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/brands/{brand}": {
+      "get": {
+        "summary": "Get specific brand information",
+        "description": "Returns detailed information about a specific brand including voice, policies, and approved content",
+        "operationId": "getBrandInfo",
+        "parameters": [
+          {
+            "name": "brand",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Brand name (e.g., Amar, Techcycle, BuyItBack)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Brand information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandInfoResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Brand not found"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ValidateRequest": {
+        "type": "object",
+        "required": ["brand", "platform", "caption", "media_suggestion"],
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand name (e.g., Amar, Techcycle, BuyItBack)",
+            "example": "Amar"
+          },
+          "platform": {
+            "type": "string",
+            "description": "Social media platform",
+            "example": "Instagram"
+          },
+          "caption": {
+            "type": "string",
+            "description": "Post caption content",
+            "example": "Check out our latest refurbished phones!"
+          },
+          "hashtags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Array of hashtags",
+            "example": ["#AmarMarketplace", "#RefurbishedPhones"]
+          },
+          "cta": {
+            "type": "string",
+            "description": "Call-to-action text",
+            "example": "Shop now"
+          },
+          "media_suggestion": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Media type (single_image, carousel, reel, video, etc.)",
+                "example": "single_image"
+              },
+              "count": {
+                "type": "integer",
+                "description": "Number of items for carousels",
+                "example": 3
+              },
+              "notes": {
+                "type": "string",
+                "description": "Additional media notes",
+                "example": "High-quality product photos"
+              }
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "Link URL",
+                  "example": "https://amar.co.uk/products"
+                },
+                "utm": {
+                  "type": "boolean",
+                  "description": "Whether to add UTM parameters",
+                  "example": true
+                }
+              }
+            },
+            "description": "Array of links to include",
+            "example": [{"url": "https://amar.co.uk/products", "utm": true}]
+          },
+          "week": {
+            "type": "string",
+            "description": "Week identifier (e.g., W41)",
+            "example": "W41"
+          },
+          "post_id": {
+            "type": "string",
+            "description": "Unique post identifier",
+            "example": "amar_ig_W41_001"
+          }
+        }
+      },
+      "ValidationResponse": {
+        "type": "object",
+        "properties": {
+          "valid": {
+            "type": "boolean",
+            "description": "Whether the content passed validation"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of validation errors (if any)"
+          },
+          "sha256": {
+            "type": "string",
+            "description": "SHA256 hash of validated content"
+          },
+          "proof_file": {
+            "type": "string",
+            "description": "Path to proof file"
+          },
+          "normalized_bundle": {
+            "type": "object",
+            "description": "Normalized content bundle"
+          }
+        }
+      },
+      "BrandsResponse": {
+        "type": "object",
+        "properties": {
+          "brands": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BrandInfo"
+            }
+          }
+        }
+      },
+      "BrandInfoResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BrandInfo"
+          }
+        ]
+      },
+      "BrandInfo": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string",
+            "description": "Brand name"
+          },
+          "voice": {
+            "type": "object",
+            "properties": {
+              "tone": {
+                "type": "string",
+                "description": "Brand tone"
+              },
+              "style": {
+                "type": "string",
+                "description": "Brand style"
+              }
+            }
+          },
+          "story": {
+            "type": "string",
+            "description": "Brand story"
+          },
+          "platforms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Enabled platforms"
+          },
+          "hashtag_banks": {
+            "type": "object",
+            "description": "Approved hashtags per platform"
+          },
+          "cta_banks": {
+            "type": "object",
+            "description": "Approved CTAs per platform"
+          },
+          "media_policy": {
+            "type": "object",
+            "description": "Media policies per platform"
+          },
+          "forbidden_words": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Forbidden words"
+          },
+          "allowed_domains": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Allowed link domains"
+          },
+          "required_disclosures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Required disclosures"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

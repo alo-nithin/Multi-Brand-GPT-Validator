@@ -60,6 +60,58 @@ def banks(brand: str, authorization: Optional[str] = Header(None)):
     except FileNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
+@app.get("/brands")
+def get_brands(authorization: Optional[str] = Header(None)):
+    _auth_check(authorization)
+    import os
+    import json
+    
+    brands = []
+    config_dir = "config"
+    
+    if os.path.exists(config_dir):
+        for file in os.listdir(config_dir):
+            if file.endswith('.json') and file != 'multibrand.json':
+                brand_name = file.replace('.json', '').replace('_', ' ').title()
+                try:
+                    with open(os.path.join(config_dir, file), 'r') as f:
+                        cfg = json.load(f)
+                        brands.append({
+                            "name": cfg.get("brand", brand_name),
+                            "voice": cfg.get("voice", {}),
+                            "story": cfg.get("story", ""),
+                            "platforms": cfg.get("platforms", []),
+                            "hashtag_banks": cfg.get("hashtag_bank", {}),
+                            "cta_banks": cfg.get("cta_bank", {}),
+                            "media_policy": cfg.get("media_policy", {}),
+                            "forbidden_words": cfg.get("forbidden_words", []),
+                            "allowed_domains": cfg.get("link_policy", {}).get("allowed_domains", [])
+                        })
+                except Exception as e:
+                    continue
+    
+    return {"brands": brands}
+
+@app.get("/brands/{brand}")
+def get_brand_info(brand: str, authorization: Optional[str] = Header(None)):
+    _auth_check(authorization)
+    try:
+        cfg = load_brand_config(brand)
+        return {
+            "brand": cfg.get("brand", brand),
+            "voice": cfg.get("voice", {}),
+            "story": cfg.get("story", ""),
+            "platforms": cfg.get("platforms", []),
+            "hashtag_banks": cfg.get("hashtag_bank", {}),
+            "cta_banks": cfg.get("cta_bank", {}),
+            "media_policy": cfg.get("media_policy", {}),
+            "forbidden_words": cfg.get("forbidden_words", []),
+            "allowed_domains": cfg.get("link_policy", {}).get("allowed_domains", []),
+            "required_disclosures": cfg.get("required_disclosures", [])
+        }
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
 @app.post("/validate")
 def do_validate(req: ValidateRequest, authorization: Optional[str] = Header(None)):
     try:
