@@ -4,6 +4,7 @@ from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
 from validator import validate, load_brand_config
 from google_sheets_service import sheets_service
+from content_generator import content_generator
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -32,6 +33,12 @@ class ValidateRequest(BaseModel):
     links: List[Link] = []
     week: Optional[str] = None
     post_id: Optional[str] = None
+
+class VariationRequest(BaseModel):
+    base_content: Dict[str, Any]
+    brand: str = Field(..., examples=["Amar"])
+    platform: str = Field(..., examples=["Instagram"])
+    count: int = Field(default=3, ge=1, le=5)
 
 def _auth_check(authorization: Optional[str]):
     if not API_TOKEN:
@@ -127,3 +134,32 @@ def do_validate(req: ValidateRequest, authorization: Optional[str] = Header(None
         return {"valid": True, **payload}
     except Exception as e:
         return {"error": str(e), "type": type(e).__name__}
+
+@app.post("/generate/variations")
+def generate_variations(request: VariationRequest, authorization: Optional[str] = Header(None)):
+    """Generate multiple variations of content"""
+    try:
+        _auth_check(authorization)
+        
+        variations = content_generator.generate_variations(
+            request.base_content,
+            request.brand,
+            request.platform,
+            request.count
+        )
+        
+        return {
+            "success": True,
+            "variations": variations,
+            "count": len(variations),
+            "brand": request.brand,
+            "platform": request.platform,
+            "message": f"Generated {len(variations)} variations for {request.brand} on {request.platform}"
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e),
+            "variations": [],
+            "count": 0
+        }
