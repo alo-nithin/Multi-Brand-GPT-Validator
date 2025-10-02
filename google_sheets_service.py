@@ -146,6 +146,7 @@ class GoogleSheetsService:
             "link_policy": {"allowed_domains": []},
             "required_disclosures": [],
             "caption_rules": {},
+            "posting_frequency": {},
             "proof_manifest": {
                 "timezone": "UTC",
                 "root": "/proofs"
@@ -195,6 +196,10 @@ class GoogleSheetsService:
                     config['link_policy']['allowed_domains'].append(value)
             elif category == 'Required Disclosures':
                 config['required_disclosures'].append(value)
+            elif category == 'Posting Frequency':
+                if platform not in config['posting_frequency']:
+                    config['posting_frequency'][platform] = {}
+                config['posting_frequency'][platform][key] = value
         
         return config
     
