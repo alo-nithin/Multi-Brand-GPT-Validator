@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 from validator import validate, load_brand_config
 from google_sheets_service import sheets_service
 from content_generator import content_generator
