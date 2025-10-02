@@ -47,13 +47,33 @@ Thumbs.db
 # Logs
 *.log
 
-# Excel files (keep the original for reference)
-# *.xlsx
-
-# Proof files (generated at runtime)
-/Codex/
-
-# Environment variables
+# Environment variables and credentials
+.env
 .env.local
 .env.production
 .env.development
+google-credentials.json
+*.json
+!config/*.json
+!requirements.json
+
+# Excel files and temporary files
+*.xlsx
+*.csv
+analyze_*.py
+generate_*.py
+create_*.py
+brand_*.csv
+google_sheets_*.csv
+master_*.csv
+complete_*.json
+excel_*.json
+
+# Proof files (generated at runtime)
+/Codex/
+proofs/
+
+# Documentation files (keep only essential ones)
+GOOGLE_SHEETS_*.md
+CONVERSION_*.md
+FINAL_*.md

@@ -1,7 +1,8 @@
 import hashlib, json, os, re
 from datetime import datetime
 from dateutil import tz
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
+from google_sheets_service import sheets_service
 
 def _cfg_path(brand: str) -> str:
     # Try multiple possible paths for the config directory
@@ -19,6 +20,29 @@ def _cfg_path(brand: str) -> str:
     return possible_paths[0]
 
 def load_brand_config(brand: str) -> Dict:
+    """
+    Load brand configuration from Google Sheets or local files
+    
+    Args:
+        brand: Brand name
+    
+    Returns:
+        Brand configuration dictionary
+    """
+    # Try Google Sheets first
+    if sheets_service.is_available():
+        try:
+            print(f"📊 Loading {brand} config from Google Sheets...")
+            return sheets_service.get_brand_config(brand)
+        except Exception as e:
+            print(f"⚠️ Google Sheets failed for {brand}: {e}")
+            print(f"📁 Falling back to local config...")
+    
+    # Fallback to local files
+    return _load_local_config(brand)
+
+def _load_local_config(brand: str) -> Dict:
+    """Load brand configuration from local JSON files"""
     p = _cfg_path(brand)
     if not os.path.exists(p):
         raise FileNotFoundError(f"Config not found for brand: {brand}")

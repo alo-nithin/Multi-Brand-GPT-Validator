@@ -3,6 +3,11 @@ from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel, Field
 from typing import List, Optional, Dict
 from validator import validate, load_brand_config
+from google_sheets_service import sheets_service
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 API_TOKEN = os.getenv("VALIDATOR_TOKEN", None)
 
