@@ -143,12 +143,17 @@ class ContentVariationGenerator:
 
     def _select_hashtags(self, hashtags: List[str], platform: str, variation_index: int) -> List[str]:
         """Select appropriate hashtags for variation"""
-        if not hashtags:
-            return []
+        selected = []
         
-        # Select 3-5 hashtags based on variation
-        count = min(5, max(3, len(hashtags)))
-        selected = random.sample(hashtags, min(count, len(hashtags)))
+        # If no hashtags provided, use default brand hashtags
+        if not hashtags:
+            # Use common brand hashtags as fallback
+            default_hashtags = ['#AmarMarketplace', '#RefurbishedPhones', '#QualityGuaranteed']
+            selected = default_hashtags[:3]
+        else:
+            # Select 3-5 hashtags based on variation
+            count = min(5, max(3, len(hashtags)))
+            selected = random.sample(hashtags, min(count, len(hashtags)))
         
         # Add platform-specific hashtags
         platform_hashtags = {
