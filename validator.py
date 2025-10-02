@@ -81,7 +81,8 @@ def iso_week_str(now: datetime, tz_name: str = "Europe/London") -> str:
 
 def write_proof(brand_cfg: Dict, post_id: str, sha: str, ts: datetime) -> str:
     week = iso_week_str(ts, brand_cfg["proof_manifest"]["timezone"])
-    root = brand_cfg["proof_manifest"]["root"]
+    # Use a writable directory instead of /Codex
+    root = os.path.join(os.getcwd(), "proofs", brand_cfg["brand"])
     os.makedirs(root, exist_ok=True)
     fp = os.path.join(root, f"{week}.hash")
     record = {"post_id": post_id, "sha256": sha, "timestamp": ts.isoformat()}
